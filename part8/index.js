@@ -91,14 +91,14 @@ const typeDefs = gql`
   type Book {
     title: String!
     author: String!
-    published: Int!
+    published: String!
     genres: [String!]!
   }
 
   type Author {
     name: String!
     bookCount: Int!
-    born: Int
+    born: String
   }
 
   type Query {
@@ -112,12 +112,12 @@ const typeDefs = gql`
     addBook(
       title: String!
       author: String!
-      published: Int!
+      published: String!
       genres: [String!]!
     ): Book
     editAuthor(
     name: String!
-    setBorn: Int
+    born: String
     ): Author
   }
 `;
@@ -161,7 +161,7 @@ const resolvers = {
       if (!author) {
         return null
       }
-      const updateAuthor = {...author, born: args.setBorn}
+      const updateAuthor = {...author, born: args.born}
       authors = authors.map(a => a.name === args.name ? updateAuthor : a)
       return updateAuthor
     }
