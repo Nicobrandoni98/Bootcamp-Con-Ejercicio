@@ -38,7 +38,7 @@ const typeDefs = gql`
 
   type Book {
     title: String!
-    published: Int!
+    published: String
     author: Author!
     genres: [String!]!
     id: ID!
@@ -62,7 +62,7 @@ const typeDefs = gql`
     addBook(
       title: String!
       author: String!
-      published: Int!
+      published: String!
       genres: [String!]!
     ): Book
     editAuthor(name: String!, born: String): Author
@@ -87,7 +87,7 @@ const resolvers = {
     bookCount: async () => Book.collection.countDocuments(),
     authorCount: () => Author.collection.countDocuments(),
     allBooks: async (root, args) => {
-      return Book.find({});
+      return Book.find({}).populate('author');
     },
     allAuthor: async () => {
       return Author.find({});
