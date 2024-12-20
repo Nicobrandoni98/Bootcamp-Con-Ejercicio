@@ -1,33 +1,55 @@
-/* type Operation = 'multiply' | 'add' | 'divide';
+import express from 'express';
+import cors from 'cors';
+/* import calculateBmi from './bmiCalculator'; */
+import { ejercicioDias, parseExerciseArguments } from './exerciseCalculator';
 
+const app = express();
+app.use(cors());
+app.use(express.json())
 
-const calculator = (a: number, b: number, op: Operation) : number => {
-  switch(op) {
-    case 'multiply':
-      return a * b;
-    case 'divide':
+/* app.get('/bmi', (req, res) => {
+  const { peso, altura } = req.query;
+  const validParameters: boolean =
+    !isNaN(Number(peso)) && !isNaN(Number(altura));
 
-      if (b === 0) throw new Error('Can\'t divide by 0!');
-      return a / b;
-    case 'add':
-      return a + b;
-    default:
+  const bmi = calculateBmi(Number(peso), Number(altura));
 
-      throw new Error('Operation is not multiply, add or divide!');
+  if (!validParameters || !peso || !altura) {
+    res.status(400).send({ error: "malformatted parameters" });
   }
-}
 
-try {
-  console.log(calculator(1, 5 , 'divide'));
-} catch (error: unknown) {
-  let errorMessage = 'Something went wrong: '
-  if (error instanceof Error) {
-    errorMessage += error.message;
+   res.send({
+    peso,
+    altura,
+    bmi
+  });
+}); */
+
+
+app.post('/exercises', (req, res) => {
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const dailyExercises = req.body.daily_exercises;
+  const dailyTarget = req.body.target;
+
+  if (!(dailyExercises || !dailyTarget)) {
+    res.status(400)
+    res.send({ error: 'missing parameter daily_exercises or target'})
+  } else {
+    try {
+      const { target, dailyExerciseHours } = parseExerciseArguments(
+        dailyTarget,
+        dailyExercises
+      );
+      res.send(ejercicioDias(dailyExerciseHours, target));
+    } catch (e) {
+      res.status(400);
+      res.send({ error: e.message });
+    }
   }
-  console.log(errorMessage);
-}
+});
 
-console.log(process.argv);
- */
-
-
+const PORT = 3002;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

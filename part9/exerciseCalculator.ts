@@ -1,4 +1,23 @@
-interface Result {
+interface ExerciseValues {
+    target: number;
+    dailyExerciseHours: Array<number>;
+}
+
+export const parseExerciseArguments = (
+    target: number,
+    dailyExercises: Array<number>
+): ExerciseValues => {
+    if (!isNaN(target) && !dailyExercises.some(isNaN)) {
+        return {
+            target: target,
+            dailyExerciseHours: dailyExercises
+        };
+    } else {
+        throw new Error('Provided values were not numbers!')
+    }
+}
+
+export interface Result {
     periodLength: number;
     trainingDays: number;
     success: boolean;
@@ -8,15 +27,15 @@ interface Result {
     average: number;
 }
 
-const ejercicioDias = (hsDays: number[], hsObj: number) => {
-    const periodLength = hsDays.length
-    const trainingDays = hsDays.filter(h => h > 0).length
-    const average = hsDays.reduce((anterior, actual) => anterior + actual, 0) / periodLength
-    const target = hsObj
-    const success = average >= target
+export const ejercicioDias = (hsDays: number[], hsObj: number): Result => {
+    const periodLength = hsDays.length;
+    const trainingDays = hsDays.filter(h => h > 0).length;
+    const average = hsDays.reduce((anterior, actual) => anterior + actual, 0) / periodLength;
+    const target = hsObj;
+    const success = average >= target;
 
-    let rating: number
-    let ratingDescription: string
+    let rating: number;
+    let ratingDescription: string;
 
     if (average >= target) {
         rating = 3;
@@ -37,28 +56,28 @@ const ejercicioDias = (hsDays: number[], hsObj: number) => {
         ratingDescription,
         target,
         average,
-    }
-}
+    };
+};
 
-const parseArguments = (args: string[]): {hsDays: number[], hsObj: number} => {
+const parseArguments = (args: string[]): { hsDays: number[], hsObj: number } => {
     if (args.length < 4) throw new Error('Not enough arguments. Provide daily hours and a target.');
 
     const numbers = args.slice(2).map(arg => Number(arg));
 
     if (numbers.some(isNaN)) {
-        throw new Error('All provided values must be numbers!')
-    } 
+        throw new Error('All provided values must be numbers!');
+    }
 
-    const hsObj = numbers.pop()
+    const hsObj = numbers.pop();
     if (hsObj === undefined) {
-        throw new Error('Target value is missing!')
+        throw new Error('Target value is missing!');
     }
 
     return {
         hsDays: numbers,
         hsObj
-    }
-}
+    };
+};
 
 try {
     const { hsDays, hsObj } = parseArguments(process.argv);
@@ -71,4 +90,3 @@ try {
         console.error('Unknown error occurred');
     }
 }
-
