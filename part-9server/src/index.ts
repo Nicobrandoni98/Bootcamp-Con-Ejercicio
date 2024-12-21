@@ -1,3 +1,6 @@
+// minuto 55:30 midudev crea tu propia api rest
+
+
 import express from 'express'
 import diaryRouter from './router/diaries'
 
