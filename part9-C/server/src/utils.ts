@@ -1,10 +1,10 @@
-import { NewDiaryEntry, Weather, Visibility } from "./types";
+import { NewPatient, Gender } from "./types";
 
-const parseComment = (commentFromRequest: any): string => {
-  if (!isString(commentFromRequest)) {
-    throw new Error("Incorrect or missing comment");
+const parseName = (nameFromRequest: any): string => {
+  if (!isString(nameFromRequest)) {
+    throw new Error("Incorrect or missing name");
   }
-  return commentFromRequest;
+  return nameFromRequest;
 };
 const parseDate = (dateFromRequest: any): string => {
   if (!isString(dateFromRequest) || !isDate(dateFromRequest)) {
@@ -12,48 +12,49 @@ const parseDate = (dateFromRequest: any): string => {
   }
   return dateFromRequest;
 };
-
-const parseWeather = (weatherFromRequest: any): Weather => {
-  if (!isString(weatherFromRequest) || !isWeather(weatherFromRequest)) {
-    throw new Error("Incorrect or missing weather");
-  }
-  return weatherFromRequest;
-};
-
-const parseVisibility = (visibilityFromRequest: any): Visibility => {
-  if (
-    !isString(visibilityFromRequest) ||
-    !isVisibility(visibilityFromRequest)
-  ) {
+const parseSsd = (ssdFromRequest: any): string => {
+  if (!isString(ssdFromRequest)) {
     throw new Error("Incorrect or missing visibility");
   }
-  return visibilityFromRequest;
+  return ssdFromRequest;
 };
 
-const isWeather = (param: any): boolean => {
-  return Object.values(Weather).includes(param);
+const parseGender = (genderFromRequest: any): Gender => {
+  if (!isString(genderFromRequest) || !isGender(genderFromRequest)) {
+    throw new Error("Incorrect or missing gender");
+  }
+  return genderFromRequest;
 };
 
-const isString = (string: string): boolean => {
-  return typeof string === "string";
+const parseOccupation = (occcupationFromRequest: any): string => {
+  if (!isString(occcupationFromRequest)) {
+    throw new Error("Incorrect or missing visibility");
+  }
+  return occcupationFromRequest;
+};
+
+
+const isString = (text: any): text is string => {
+  return typeof text === "string" || text instanceof String;
 };
 
 const isDate = (date: string): boolean => {
   return Boolean(Date.parse(date));
 };
 
-const isVisibility = (param: any): boolean => {
-  return Object.values(Visibility).includes(param);
+const isGender = (param: any): param is Gender => {
+  return Object.values(Gender).includes(param);
 };
 
-const toNewDiaryEntry = (object: any): NewDiaryEntry => {
-  const newEntry: NewDiaryEntry = {
-    comment: parseComment(object.comment),
-    date: parseDate(object.date),
-    weather: parseWeather(object.weather),
-    visibility: parseVisibility(object.visibility),
+const toNewPatient = (object: any): NewPatient => {
+  const newEntry: NewPatient = {
+    name: parseName(object.name),
+    dateOfBirth: parseDate(object.dateOfBirth),
+    ssn: parseSsd(object.ssn),
+    gender: parseGender(object.gender),
+    occupation: parseOccupation(object.occupation),
   };
   return newEntry;
 };
 
-export default toNewDiaryEntry;
+export default toNewPatient;

@@ -1,23 +1,16 @@
-export enum Weather {
-  Sunny = 'sunny',
-  Rainy = 'rainy',
-  Cloudy = 'cloudy',
-  Windy = 'windy',
-  Stormy = 'stormy'
-}
-export enum Visibility {
-  Great = 'great',
-  Good = 'good',
-  Ok = 'ok',
-  Poor = 'poor'
+export enum Gender {
+  Male = "male",
+  Female = "female",
+  Other = "other",
 }
 
-export interface DiaryEntry {
-  id: number;
-  date: string;
-  weather: Weather;
-  visibility: Visibility;
-  comment: string;
+export interface Patient {
+  id: string;
+  name: string;
+  dateOfBirth: string;
+  ssn: string;
+  gender: Gender;
+  occupation: string;
 }
 
 // Si quisiese tener otro tipo de "interface" sin un dato especifico puedo hacer lo siguiente:
@@ -28,6 +21,6 @@ export type NonSensisitveInfoDiaryEntry = Pick<DiaryEntry, 'id' | 'date' | 'weat
 
 De esta forma directamenta omito el valor que no quiero que tenga mi interface:
 */
-export type NonSensitiveInfoDiaryEntry = Omit<DiaryEntry, "comment">;
+export type NonSensitiveInfoPatientData = Omit<Patient, "ssn">;
 
-export type NewDiaryEntry = Omit<DiaryEntry, "id">;
+export type NewPatient = Omit<Patient, "id">;
