@@ -13,6 +13,12 @@ export interface Patient {
   occupation: string;
 }
 
+export interface Diagnoses {
+  code: string;
+  name: string;
+  latin?: string;
+}
+
 // Si quisiese tener otro tipo de "interface" sin un dato especifico puedo hacer lo siguiente:
 
 /* 
