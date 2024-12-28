@@ -3,6 +3,9 @@ export enum Gender {
   Female = "female",
   Other = "other",
 }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Entry {
+}
 
 export interface Patient {
   id: string;
@@ -11,6 +14,7 @@ export interface Patient {
   ssn: string;
   gender: Gender;
   occupation: string;
+  entries: Entry[]
 }
 
 export interface Diagnoses {
@@ -27,6 +31,9 @@ export type NonSensisitveInfoDiaryEntry = Pick<DiaryEntry, 'id' | 'date' | 'weat
 
 De esta forma directamenta omito el valor que no quiero que tenga mi interface:
 */
+
+export type NonSensitivePatient = Omit<Patient, 'ssn' | 'entries'>;
+
 export type NonSensitiveInfoPatientData = Omit<Patient, "ssn">;
 
 export type NewPatient = Omit<Patient, "id">;

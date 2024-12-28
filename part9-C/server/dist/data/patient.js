@@ -56,5 +56,4 @@ const patientsData = data.map((obj) => {
     object.id = obj.id;
     return object;
 });
-console.log("Loaded patients data:", patientsData);
 exports.default = patientsData;

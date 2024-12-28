@@ -46,6 +46,10 @@ const isGender = (param: any): param is Gender => {
   return Object.values(Gender).includes(param);
 };
 
+const isArray = (arr: any): arr is Array<any> => {
+  return Array.isArray(arr);
+};
+
 const toNewPatient = (object: any): NewPatient => {
   const newEntry: NewPatient = {
     name: parseName(object.name),
@@ -53,6 +57,7 @@ const toNewPatient = (object: any): NewPatient => {
     ssn: parseSsd(object.ssn),
     gender: parseGender(object.gender),
     occupation: parseOccupation(object.occupation),
+    entries: isArray(object.entries) ? object.entries : [],
   };
   return newEntry;
 };

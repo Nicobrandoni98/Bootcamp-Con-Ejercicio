@@ -4,10 +4,18 @@ import { v1 as uuid } from "uuid";
 
 const patientes: Patient[] = patientsData as Patient[];
 
-export const getEntries = (): Patient[] => patientes;
+
+export const getAll = (): Array<NonSensitiveInfoPatientData> => {
+  return patientes;
+};
+
+export const findById = (id: string): Patient | undefined => {
+  return patientes.find(patient => patient.id === id);
+};
+
 
 /* export const findById = (
-  id: number
+  id: string
 ): NonSensitiveInfoPatientData | undefined => {
   const entry = patientes.find((d) => d.id === id);
   if (entry) {
@@ -19,21 +27,22 @@ export const getEntries = (): Patient[] => patientes;
 
 export const getNonSensitivePatientsData =
   (): NonSensitiveInfoPatientData[] => {
-    return patientes.map(({ id, name, dateOfBirth, gender, occupation }) => {
+    return patientes.map(({ id, name, dateOfBirth, gender, occupation, entries }) => {
       return {
         id,
         name,
         dateOfBirth,
         gender,
         occupation,
+        entries
       };
     });
   };
 
 export const addPatient = (patient: NewPatient): Patient => {
-    const id = uuid();
-    const newPatient = { id, ...patient };
-    patientes.push(newPatient);
-    return newPatient;
-  };
-  
+  const id = uuid();
+  const newPatient = { id, ...patient };
+  patientes.push(newPatient);
+  return newPatient;
+};
+

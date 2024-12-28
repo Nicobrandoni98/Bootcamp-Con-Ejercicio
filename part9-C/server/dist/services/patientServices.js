@@ -3,25 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addPatient = exports.getNonSensitivePatientsData = exports.findById = exports.getAll = exports.patients = void 0;
+exports.addPatient = exports.getNonSensitivePatientsData = exports.findById = exports.getAll = void 0;
 const patient_1 = __importDefault(require("../data/patient"));
 const uuid_1 = require("uuid");
-exports.patients = patient_1.default.map(({ id, name, dateOfBirth, gender, occupation, entries, ssn }) => ({
-    id,
-    name,
-    dateOfBirth,
-    gender,
-    ssn,
-    occupation,
-    entries
-}));
-console.log("Patients array:", exports.patients);
+const patientes = patient_1.default;
 const getAll = () => {
-    return exports.patients;
+    return patientes;
 };
 exports.getAll = getAll;
 const findById = (id) => {
-    return exports.patients.find(patient => patient.id.trim() === id.trim());
+    return patientes.find(patient => patient.id === id);
 };
 exports.findById = findById;
 /* export const findById = (
@@ -35,7 +26,7 @@ exports.findById = findById;
   return undefined;
 }; */
 const getNonSensitivePatientsData = () => {
-    return exports.patients.map(({ id, name, dateOfBirth, gender, occupation, entries }) => {
+    return patientes.map(({ id, name, dateOfBirth, gender, occupation, entries }) => {
         return {
             id,
             name,
@@ -49,8 +40,8 @@ const getNonSensitivePatientsData = () => {
 exports.getNonSensitivePatientsData = getNonSensitivePatientsData;
 const addPatient = (patient) => {
     const id = (0, uuid_1.v1)();
-    const newPatient = Object.assign({ id }, patient);
-    exports.patients.push(newPatient);
+    const newPatient = { id, ...patient };
+    patientes.push(newPatient);
     return newPatient;
 };
 exports.addPatient = addPatient;

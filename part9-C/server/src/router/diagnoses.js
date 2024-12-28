@@ -37,23 +37,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const patientServices = __importStar(require("../services/patientServices"));
-const utils_1 = __importDefault(require("../utils"));
+const diagnoseServices = __importStar(require("../services/diagnosesServices"));
 const router = express_1.default.Router();
 router.get("/", (_req, res) => {
-    res.send(patientServices.getNonSensitivePatientsData());
-});
-router.get('/:id', (req, res) => {
-    res.send(patientServices.findById(req.params.id));
-});
-router.post("/", (req, res) => {
-    try {
-        const newPatient = (0, utils_1.default)(req.body);
-        const addedPatient = patientServices.addPatient(newPatient);
-        res.json(addedPatient);
-    }
-    catch (e) {
-        res.status(400).send(e.message);
-    }
+    res.send(diagnoseServices.getDiagnoses());
 });
 exports.default = router;
