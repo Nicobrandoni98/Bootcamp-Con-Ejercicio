@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2020",            // O la versión de JavaScript que prefieras
-    "module": "commonjs",          // Usar módulos comunes
-    "strict": true,                // Habilita el modo estricto
-    "esModuleInterop": true,       // Habilita la interoperabilidad con módulos ES
-    "skipLibCheck": true,          // Salta la verificación de bibliotecas (opcional)
-    "outDir": "./dist",            // Carpeta donde se transpilarán los archivos
-    "rootDir": "./src",            // Carpeta de origen de los archivos TypeScript
-    "resolveJsonModule": true,     // Si usas archivos .json, habilítalo
-    "noImplicitAny": true          // Evitar el tipo `any` implícito
+    "outDir": "./dist", 
+    "rootDir": "./src", 
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2020",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "noImplicitAny": true
   },
   "include": [
-    "src/**/*"                      // Incluir todos los archivos en la carpeta src
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules"                  // Excluir node_modules
+    "node_modules"
   ]
 }

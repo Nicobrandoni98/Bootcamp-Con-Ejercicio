@@ -31,6 +31,12 @@ const parseOccupation = (occcupationFromRequest) => {
     }
     return occcupationFromRequest;
 };
+const parseEntries = (entries) => {
+    if (!entries) {
+        throw new Error(`Incorrect or missing entries: ${entries}`);
+    }
+    return entries;
+};
 const isString = (text) => {
     return typeof text === "string" || text instanceof String;
 };
@@ -40,9 +46,6 @@ const isDate = (date) => {
 const isGender = (param) => {
     return Object.values(types_1.Gender).includes(param);
 };
-const isArray = (arr) => {
-    return Array.isArray(arr);
-};
 const toNewPatient = (object) => {
     const newEntry = {
         name: parseName(object.name),
@@ -50,7 +53,7 @@ const toNewPatient = (object) => {
         ssn: parseSsd(object.ssn),
         gender: parseGender(object.gender),
         occupation: parseOccupation(object.occupation),
-        entries: isArray(object.entries) ? object.entries : [],
+        entries: parseEntries(object.entries)
     };
     return newEntry;
 };
