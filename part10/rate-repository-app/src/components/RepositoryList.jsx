@@ -1,11 +1,13 @@
 import React from "react";
 import { FlatList, View, StyleSheet } from "react-native";
+import Constants from 'expo-constants'
+
 import RepositoryItem from "./RepositoryItem";
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
-  },
+  }
 });
 
 const repositories = [
