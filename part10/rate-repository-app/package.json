@@ -1,0 +1,29 @@
+{
+  "name": "rate-repository-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~4.0.0",
+    "expo": "~52.0.23",
+    "expo-status-bar": "~2.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.5",
+    "react-native-web": "~0.19.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/eslint-parser": "^7.25.9",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.3"
+  },
+  "private": true
+}
