@@ -1,12 +1,13 @@
-import React from 'react';/* 
-import Constants from 'expo-constants';
-import { Text, StyleSheet, View } from 'react-native'; */
-import RepositoryList from './RepositoryList';
-
+import React from "react";
+import Constants from "expo-constants";
+import { Text, StyleSheet, View } from "react-native";
+import RepositoryList from "./RepositoryList";
 
 const Main = () => {
   return (
-    < RepositoryList />
+    <View style={{marginTop: Constants.statusBarHeight, flexGrow: 1}}>
+      <RepositoryList />
+    </View>
   );
 };
 
