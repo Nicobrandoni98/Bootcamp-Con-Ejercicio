@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
 })
 
 export default function StyledText ({children, color, fontSize, fontWeight, align, style, ...restOfProps}) {
+    if (typeof children !== 'string' && typeof children !== 'number') {
+        console.warn('StyledText: children must be a string or number');
+    }
     const textStyles = [
         styles.text,
         align === 'center' && styles.textAlignCenter,
